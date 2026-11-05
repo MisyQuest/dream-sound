@@ -9,18 +9,46 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>DREAM SOUND</title>
 <style>
-:root{color-scheme:dark;--bg:#101d22;--panel:#1b3036;--panel2:#263e43;--text:#f2f7f4;--muted:#afc2bd;--accent:#c5e5d4}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#29464a 0,#101d22 48%);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;min-height:100vh}
+:root{color-scheme:dark;--bg:#101d22;--page-bg:radial-gradient(circle at 15% 0%,#29464a 0,#101d22 48%);--panel:#1b3036;--panel2:#263e43;--text:#f2f7f4;--muted:#afc2bd;--accent:#c5e5d4;--hero1:#2d4c4b}
+*{box-sizing:border-box}body{margin:0;background:var(--page-bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;min-height:100vh}
 main{width:min(900px,100%);margin:auto;padding:26px 18px 50px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.brand{font-weight:800;letter-spacing:2px}.tag{font-size:11px;color:var(--accent);border:1px solid #54746b;padding:6px 10px;border-radius:99px}
-.hero{padding:24px 22px;border-radius:24px;background:linear-gradient(130deg,#2d4c4b,#1b3036 65%);margin-bottom:22px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(28px,6vw,42px);margin:8px 0}.hero p{color:var(--muted);margin:0;line-height:1.6}
+.hero{padding:24px 22px;border-radius:24px;background:linear-gradient(130deg,var(--hero1),var(--panel) 65%);margin-bottom:22px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(28px,6vw,42px);margin:8px 0}.hero p{color:var(--muted);margin:0;line-height:1.6}
 h2{font-size:18px;margin:26px 0 12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.sound{background:var(--panel);border:1px solid #30484d;border-radius:17px;padding:15px;text-align:left;color:var(--text);cursor:pointer;min-height:110px;transition:.15s}.sound.active{border-color:var(--accent);background:#29443f;box-shadow:0 0 0 1px #c5e5d455}.sound{position:relative}.fav-star{position:absolute;right:9px;top:7px;border:0;background:transparent;color:#ffd77a;font-size:20px;cursor:pointer;padding:2px 5px}.fav-star.is-fav{color:#ffd77a}.sound[hidden]{display:none}.chips,.presets{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.chip,.preset{border:1px solid #496268;border-radius:99px;background:#263e43;color:var(--text);padding:8px 13px;cursor:pointer;font-size:12px}.chip.on{background:var(--accent);color:#14252a;border-color:var(--accent);font-weight:800}.preset{border-radius:13px;padding:11px 14px}.master{display:flex;align-items:center;gap:10px;margin-top:15px;padding-top:13px;border-top:1px solid #30464a}.master label{font-size:13px;color:var(--muted);white-space:nowrap}.master input{flex:1;min-width:50px;accent-color:var(--accent)}.master output{font-size:12px;color:var(--accent);min-width:35px;text-align:right}.emoji{font-size:25px;display:block;margin-bottom:8px}.sound strong{display:block}.sound small{color:var(--muted)}
 .mix{background:var(--panel);border:1px solid #30484d;border-radius:20px;padding:17px}.track{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:10px 0;border-bottom:1px solid #30464a}.track:last-child{border:0}.track label{font-size:14px}.track output{color:var(--accent);font-size:12px}.track input{grid-column:1/3;width:100%;accent-color:#c5e5d4}.empty{color:var(--muted);font-size:14px;padding:8px 0}
 .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{border:0;border-radius:99px;padding:12px 18px;background:var(--accent);color:#14252a;font-weight:750;cursor:pointer}.btn.secondary{background:#30484d;color:var(--text);border:1px solid #496268}.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.timer select{background:#263e43;color:white;border:1px solid #496268;padding:10px;border-radius:10px}
 .note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:20px}.status{font-size:13px;color:var(--accent);margin-top:12px;min-height:20px}
+
+/* DREAM SOUND 추가 기능 */
+body[data-theme="violet"]{--page-bg:radial-gradient(circle at 15% 0%,#49356e 0,#171326 52%);--panel:#29213e;--panel2:#3b2e59;--text:#f7f2ff;--muted:#c7b9df;--accent:#d7baff;--hero1:#513d78}
+body[data-theme="ocean"]{--page-bg:radial-gradient(circle at 15% 0%,#174e69 0,#0c1d2b 52%);--panel:#173448;--panel2:#204a60;--text:#effaff;--muted:#a9c9d8;--accent:#8fe2f0;--hero1:#1e6077}
+body[data-theme="rose"]{--page-bg:radial-gradient(circle at 15% 0%,#6a394e 0,#241722 52%);--panel:#3b2634;--panel2:#533447;--text:#fff4f8;--muted:#dfbac9;--accent:#ffb9d1;--hero1:#74435a}
+.extra-card{background:var(--panel);border:1px solid #496268;border-radius:20px;padding:17px}
+.extra-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.extra-row input,.extra-row select{min-width:0;flex:1;background:var(--panel2);color:var(--text);border:1px solid #496268;border-radius:11px;padding:11px}
+.saved-mix{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #496268}
+.saved-mix:last-child{border-bottom:0}
+.saved-mix strong{font-size:14px;flex:1}
+.mini-btn{border:1px solid #496268;background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 10px;cursor:pointer}
+.theme-dot{width:17px;height:17px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:5px;background:var(--accent)}
+#ambient{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1;display:none}
+#ambient:before,#ambient:after{content:"";position:absolute;width:45vw;height:45vw;max-width:340px;max-height:340px;border-radius:50%;filter:blur(55px);opacity:.18;background:#9bdac8;animation:floatGlow 18s ease-in-out infinite alternate}
+#ambient:after{right:4%;bottom:0;background:#7da8e8;animation-duration:23s;animation-direction:alternate-reverse}
+body.ambient-on #ambient{display:block}
+@keyframes floatGlow{from{transform:translate(-12vw,8vh) scale(.8)}to{transform:translate(16vw,-9vh) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){#ambient:before,#ambient:after{animation:none}}
+#sleepOverlay{position:fixed;inset:0;background:rgba(3,7,14,.96);z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;gap:22px;text-align:center;color:#e8eafa}
+body.sleep-mode #sleepOverlay{display:flex}
+#sleepClock{font-size:clamp(48px,14vw,88px);font-weight:200;letter-spacing:3px}
+#sleepOverlay p{color:#aab4cc;margin:0}
+body.sleep-mode main{filter:brightness(.35)}
+@media(max-width:480px){.extra-row{align-items:stretch}.extra-row .btn{flex:1}}
+
 @media(max-width:480px){main{padding:18px 14px 36px}.hero{padding:20px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
+<div id="ambient" aria-hidden="true"></div>
+<div id="sleepOverlay"><div id="sleepClock">00:00</div><p>편안한 밤 보내세요 🌙</p><button class="btn" id="wakeBtn">수면 모드 해제</button></div>
 <main>
   <header class="top"><div class="brand">DREAM SOUND</div><div class="tag">WHITE NOISE</div></header>
   <section class="hero"><div class="eyebrow">YOUR QUIET MOMENT</div><h1>Find your peace.</h1><p>마음에 드는 자연의 소리를 골라 나만의 분위기를 만들어 보세요.</p></section>
@@ -61,6 +89,19 @@ h2{font-size:18px;margin:26px 0 12px}.grid{display:grid;grid-template-columns:re
   </section>
   <h2>수면 타이머</h2>
   <section class="mix"><div class="timer"><select id="duration" aria-label="타이머 시간"><option value="10">10분</option><option value="20">20분</option><option value="30" selected>30분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="180">3시간</option></select><button class="btn secondary" id="timerBtn">타이머 시작</button><span id="timerText" class="empty">설정 안 됨</span></div></section>
+  <h2>나만의 믹스 저장</h2>
+  <section class="extra-card">
+    <div class="extra-row"><input id="mixName" maxlength="24" placeholder="믹스 이름 (예: 비 오는 밤)"><button class="btn" id="saveMixBtn">현재 믹스 저장</button></div>
+    <div id="savedMixes" class="empty" style="margin-top:10px">저장한 믹스가 여기에 표시돼요.</div>
+  </section>
+  <h2>수면 모드</h2>
+  <section class="extra-card"><p class="empty">화면을 어둡게 하고 시계만 표시해요. 소리는 계속 재생돼요.</p><button class="btn secondary" id="sleepBtn">🌙 수면 모드 켜기</button></section>
+  <h2>움직이는 배경</h2>
+  <section class="extra-card"><div class="extra-row"><span style="flex:1">은은하게 움직이는 빛 효과</span><button class="btn secondary" id="ambientBtn">배경 애니메이션 켜기</button></div></section>
+  <h2>사용 기록</h2>
+  <section class="extra-card"><div class="extra-row"><div style="flex:1"><strong id="usageMinutes">0분</strong><div class="empty">총 재생 시간</div></div><div style="flex:1"><strong id="usageSessions">0회</strong><div class="empty">재생 세션</div></div></div><button class="mini-btn" id="resetStats" style="margin-top:12px">기록 초기화</button></section>
+  <h2>테마 변경</h2>
+  <section class="extra-card"><div class="extra-row"><button class="mini-btn" data-theme-choice="mint">🟢 민트</button><button class="mini-btn" data-theme-choice="violet">🟣 보라</button><button class="mini-btn" data-theme-choice="ocean">🔵 바다</button><button class="mini-btn" data-theme-choice="rose">🌸 로즈</button></div></section>
   <p class="note">※ 이 버전의 소리는 실제 녹음이 아니라 브라우저가 만드는 자연음 시뮬레이션입니다. 소리는 재생 버튼을 눌러야 시작돼요. 기기와 브라우저에 따라 소리 느낌이 다를 수 있습니다.</p>
 </main>
 <script>
@@ -171,11 +212,32 @@ $('#pause').onclick=()=>{if(!ctx||!active.size)return;master.gain.setTargetAtTim
 $('#masterVolume').oninput=()=>{const v=Number($('#masterVolume').value);$('#masterOut').textContent=v+'%';if(ctx&&!paused)master.gain.setTargetAtTime(v/100,ctx.currentTime,.04);};
 $('#stop').onclick=()=>{[...active.keys()].forEach(stopOne);paused=false;if(ctx)master.gain.setTargetAtTime(Number($('#masterVolume').value)/100,ctx.currentTime,.04);clearInterval(timerInterval);timerInterval=null;$('#timerText').textContent='설정 안 됨';$('#timerBtn').textContent='타이머 시작';$('#status').textContent='모든 소리를 정지했어요.';};
 $('#timerBtn').onclick=()=>{if(timerInterval){clearInterval(timerInterval);timerInterval=null;$('#timerText').textContent='타이머 취소됨';$('#timerBtn').textContent='타이머 시작';return;}if(!active.size){$('#status').textContent='먼저 소리를 하나 선택해 주세요.';return;}timerEnd=Date.now()+Number($('#duration').value)*60000;$('#timerBtn').textContent='타이머 취소';timerInterval=setInterval(()=>{const left=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));$('#timerText').textContent=Math.floor(left/60)+'분 '+String(left%60).padStart(2,'0')+'초 남음';if(left<=0){clearInterval(timerInterval);timerInterval=null;if(master)master.gain.setTargetAtTime(0,ctx.currentTime,1.5);setTimeout(()=>[...active.keys()].forEach(stopOne),1800);$('#timerBtn').textContent='타이머 시작';$('#timerText').textContent='타이머 종료';$('#status').textContent='타이머가 끝나 소리를 정지했어요.';}},500);};
+
+// 저장 가능한 믹스: 선택한 소리와 개별 음량을 기기에 보관합니다.
+let savedMixes=JSON.parse(localStorage.getItem('dreamSavedMixes')||'[]');
+let usage=JSON.parse(localStorage.getItem('dreamUsage')||'{"minutes":0,"sessions":0}');
+let usageStarted=false;
+function showUsage(){ $('#usageMinutes').textContent=usage.minutes+'분'; $('#usageSessions').textContent=usage.sessions+'회'; }
+function beginUsageSession(){if(!usageStarted){usage.sessions++;usageStarted=true;localStorage.setItem('dreamUsage',JSON.stringify(usage));showUsage();}}
+function drawSavedMixes(){const box=$('#savedMixes');box.innerHTML='';if(!savedMixes.length){box.textContent='저장한 믹스가 여기에 표시돼요.';box.className='empty';return;}box.className='';savedMixes.forEach((m,i)=>{const row=document.createElement('div');row.className='saved-mix';const name=document.createElement('strong');name.textContent=m.name;const load=document.createElement('button');load.className='mini-btn';load.textContent='불러오기';load.onclick=()=>{[...active.keys()].forEach(stopOne);m.items.forEach(x=>{startOne(x.id);const item=active.get(x.id);if(item)item.gain.gain.value=x.volume;});render();$('#status').textContent='저장한 믹스를 불러왔어요.';};const del=document.createElement('button');del.className='mini-btn';del.textContent='삭제';del.onclick=()=>{savedMixes.splice(i,1);localStorage.setItem('dreamSavedMixes',JSON.stringify(savedMixes));drawSavedMixes();};row.append(name,load,del);box.append(row);});}
+$('#saveMixBtn').onclick=()=>{if(!active.size){$('#status').textContent='먼저 저장할 소리를 선택해 주세요.';return;}const name=$('#mixName').value.trim()||('나만의 믹스 '+(savedMixes.length+1));const items=[...active.entries()].map(([id,item])=>({id,volume:item.gain.gain.value}));savedMixes.push({name,items});localStorage.setItem('dreamSavedMixes',JSON.stringify(savedMixes));$('#mixName').value='';drawSavedMixes();$('#status').textContent='믹스를 이 기기에 저장했어요.';};
+$('#sleepBtn').onclick=()=>{document.body.classList.add('sleep-mode');updateSleepClock();$('#sleepBtn').textContent='수면 모드 켜짐';};
+$('#wakeBtn').onclick=()=>{document.body.classList.remove('sleep-mode');$('#sleepBtn').textContent='🌙 수면 모드 켜기';};
+function updateSleepClock(){const d=new Date();$('#sleepClock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+setInterval(updateSleepClock,10000);
+$('#ambientBtn').onclick=()=>{const on=document.body.classList.toggle('ambient-on');$('#ambientBtn').textContent=on?'배경 애니메이션 끄기':'배경 애니메이션 켜기';localStorage.setItem('dreamAmbient',on?'1':'0');};
+if(localStorage.getItem('dreamAmbient')==='1'){document.body.classList.add('ambient-on');$('#ambientBtn').textContent='배경 애니메이션 끄기';}
+document.querySelectorAll('[data-theme-choice]').forEach(b=>b.onclick=()=>{const theme=b.dataset.themeChoice;document.body.dataset.theme=theme==='mint'?'mint':theme;localStorage.setItem('dreamTheme',theme);});
+const savedTheme=localStorage.getItem('dreamTheme');if(savedTheme)document.body.dataset.theme=savedTheme==='mint'?'mint':savedTheme;
+$('#resetStats').onclick=()=>{if(confirm('사용 기록을 모두 초기화할까요?')){usage={minutes:0,sessions:0};usageStarted=false;localStorage.setItem('dreamUsage',JSON.stringify(usage));showUsage();}};
+setInterval(()=>{if(active.size&&!paused){beginUsageSession();usage.minutes++;localStorage.setItem('dreamUsage',JSON.stringify(usage));showUsage();}else if(!active.size){usageStarted=false;}},60000);
+showUsage();drawSavedMixes();
+
 render();
 </script>
 <script>
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js?v=2").catch(()=>{}));
 }
 </script>
 </body>
