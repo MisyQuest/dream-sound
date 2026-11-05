@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14252a">
+<meta name="description" content="비, 모닥불, 파도 등 자연의 소리를 섞어 듣는 DREAM SOUND">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>DREAM SOUND</title>
+<style>
+:root{color-scheme:dark;--bg:#101d22;--panel:#1b3036;--panel2:#263e43;--text:#f2f7f4;--muted:#afc2bd;--accent:#c5e5d4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#29464a 0,#101d22 48%);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;min-height:100vh}
+main{width:min(900px,100%);margin:auto;padding:26px 18px 50px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.brand{font-weight:800;letter-spacing:2px}.tag{font-size:11px;color:var(--accent);border:1px solid #54746b;padding:6px 10px;border-radius:99px}
+.hero{padding:24px 22px;border-radius:24px;background:linear-gradient(130deg,#2d4c4b,#1b3036 65%);margin-bottom:22px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(28px,6vw,42px);margin:8px 0}.hero p{color:var(--muted);margin:0;line-height:1.6}
+h2{font-size:18px;margin:26px 0 12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.sound{background:var(--panel);border:1px solid #30484d;border-radius:17px;padding:15px;text-align:left;color:var(--text);cursor:pointer;min-height:110px;transition:.15s}.sound.active{border-color:var(--accent);background:#29443f;box-shadow:0 0 0 1px #c5e5d455}.sound{position:relative}.fav-star{position:absolute;right:9px;top:7px;border:0;background:transparent;color:#ffd77a;font-size:20px;cursor:pointer;padding:2px 5px}.fav-star.is-fav{color:#ffd77a}.sound[hidden]{display:none}.chips,.presets{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.chip,.preset{border:1px solid #496268;border-radius:99px;background:#263e43;color:var(--text);padding:8px 13px;cursor:pointer;font-size:12px}.chip.on{background:var(--accent);color:#14252a;border-color:var(--accent);font-weight:800}.preset{border-radius:13px;padding:11px 14px}.master{display:flex;align-items:center;gap:10px;margin-top:15px;padding-top:13px;border-top:1px solid #30464a}.master label{font-size:13px;color:var(--muted);white-space:nowrap}.master input{flex:1;min-width:50px;accent-color:var(--accent)}.master output{font-size:12px;color:var(--accent);min-width:35px;text-align:right}.emoji{font-size:25px;display:block;margin-bottom:8px}.sound strong{display:block}.sound small{color:var(--muted)}
+.mix{background:var(--panel);border:1px solid #30484d;border-radius:20px;padding:17px}.track{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:10px 0;border-bottom:1px solid #30464a}.track:last-child{border:0}.track label{font-size:14px}.track output{color:var(--accent);font-size:12px}.track input{grid-column:1/3;width:100%;accent-color:#c5e5d4}.empty{color:var(--muted);font-size:14px;padding:8px 0}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{border:0;border-radius:99px;padding:12px 18px;background:var(--accent);color:#14252a;font-weight:750;cursor:pointer}.btn.secondary{background:#30484d;color:var(--text);border:1px solid #496268}.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.timer select{background:#263e43;color:white;border:1px solid #496268;padding:10px;border-radius:10px}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:20px}.status{font-size:13px;color:var(--accent);margin-top:12px;min-height:20px}
+@media(max-width:480px){main{padding:18px 14px 36px}.hero{padding:20px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top"><div class="brand">DREAM SOUND</div><div class="tag">WHITE NOISE</div></header>
+  <section class="hero"><div class="eyebrow">YOUR QUIET MOMENT</div><h1>Find your peace.</h1><p>마음에 드는 자연의 소리를 골라 나만의 분위기를 만들어 보세요.</p></section>
+  <h2>자연의 소리</h2>
+  <div class="chips"><button class="chip on" id="showAll">전체 보기</button><button class="chip" id="showFav">★ 즐겨찾기만</button></div>
+  <section class="grid" id="sounds">
+    <button class="sound" data-id="rain"><span class="emoji">🌧️</span><strong>빗소리</strong><small>Rain</small></button>
+    <button class="sound" data-id="thunder"><span class="emoji">⛈️</span><strong>천둥소리</strong><small>Thunder</small></button>
+    <button class="sound" data-id="fire"><span class="emoji">🔥</span><strong>모닥불</strong><small>Fire</small></button>
+    <button class="sound" data-id="ocean"><span class="emoji">🌊</span><strong>파도소리</strong><small>Ocean</small></button>
+    <button class="sound" data-id="forest"><span class="emoji">🌲</span><strong>숲속 소리</strong><small>Forest</small></button>
+    <button class="sound" data-id="wind"><span class="emoji">💨</span><strong>바람소리</strong><small>Wind</small></button>
+    <button class="sound" data-id="birds"><span class="emoji">🐦</span><strong>새소리</strong><small>Birds</small></button>
+    <button class="sound" data-id="stream"><span class="emoji">💧</span><strong>물 흐르는 소리</strong><small>Stream</small></button>
+    <button class="sound" data-id="snow"><span class="emoji">❄️</span><strong>눈보라</strong><small>Blizzard</small></button>
+    <button class="sound" data-id="train"><span class="emoji">🚂</span><strong>기차</strong><small>Train ambience</small></button>
+  </section>
+  <h2>백색소음 · 생활 소리</h2>
+  <section class="grid" id="sounds2">
+    <button class="sound" data-id="white"><span class="emoji">⚪</span><strong>하얀 소음</strong><small>White noise</small></button>
+    <button class="sound" data-id="pink"><span class="emoji">🌸</span><strong>핑크 노이즈</strong><small>Pink noise</small></button>
+    <button class="sound" data-id="brown"><span class="emoji">🟤</span><strong>브라운 노이즈</strong><small>Brown noise</small></button>
+    <button class="sound" data-id="fan"><span class="emoji">🌀</span><strong>선풍기</strong><small>Fan</small></button>
+    <button class="sound" data-id="cabin"><span class="emoji">✈️</span><strong>비행기 기내</strong><small>Airplane cabin</small></button>
+    <button class="sound" data-id="waterfall"><span class="emoji">🏞️</span><strong>폭포</strong><small>Waterfall</small></button>
+    <button class="sound" data-id="crickets"><span class="emoji">🦗</span><strong>귀뚜라미</strong><small>Crickets</small></button>
+    <button class="sound" data-id="heartbeat"><span class="emoji">🫀</span><strong>심장박동</strong><small>Heartbeat</small></button>
+    <button class="sound" data-id="clock"><span class="emoji">🕰️</span><strong>시계 초침</strong><small>Clock tick</small></button>
+    <button class="sound" data-id="bowl"><span class="emoji">🔔</span><strong>싱잉볼</strong><small>Singing bowl</small></button>
+  </section>
+  <h2>추천 믹스</h2>
+  <div class="presets"><button class="preset" data-preset="sleep">🌙 깊은 수면</button><button class="preset" data-preset="forest">🌿 숲속 산책</button><button class="preset" data-preset="cozy">🔥 포근한 밤</button><button class="preset" data-preset="journey">🚂 기차 여행</button></div>
+  <h2>나만의 믹스</h2>
+  <section class="mix"><div id="tracks"><div class="empty">소리를 선택하면 여기에서 각각 음량을 조절할 수 있어요.</div></div>
+    <div class="master"><label for="masterVolume">전체 음량</label><input id="masterVolume" type="range" min="0" max="100" value="80"><output id="masterOut">80%</output></div>
+    <div class="controls"><button class="btn" id="play">▶ 전체 재생</button><button class="btn secondary" id="pause">Ⅱ 일시정지</button><button class="btn secondary" id="stop">■ 모두 정지</button></div>
+    <div class="status" id="status" aria-live="polite">소리를 선택해 시작해 보세요.</div>
+  </section>
+  <h2>수면 타이머</h2>
+  <section class="mix"><div class="timer"><select id="duration" aria-label="타이머 시간"><option value="10">10분</option><option value="20">20분</option><option value="30" selected>30분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="180">3시간</option></select><button class="btn secondary" id="timerBtn">타이머 시작</button><span id="timerText" class="empty">설정 안 됨</span></div></section>
+  <p class="note">※ 이 버전의 소리는 실제 녹음이 아니라 브라우저가 만드는 자연음 시뮬레이션입니다. 소리는 재생 버튼을 눌러야 시작돼요. 기기와 브라우저에 따라 소리 느낌이 다를 수 있습니다.</p>
+</main>
+<script>
+let ctx=null, master=null, active=new Map(), timerId=null, timerEnd=0, timerInterval=null, paused=false, favorites=new Set(JSON.parse(localStorage.getItem('dreamFavorites')||'[]')), favoriteOnly=false;
+const $=s=>document.querySelector(s);
+function noiseBuffer(){
+  const n=ctx.sampleRate*3, b=ctx.createBuffer(1,n,ctx.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=Math.random()*2-1;
+  return b;
+}
+const EXTRA=['white','pink','brown','fan','cabin','waterfall','crickets','heartbeat','clock','bowl'];
+const bufCache={};
+function colorBuffer(kind){
+  if(bufCache[kind]&&bufCache[kind].sampleRate===ctx.sampleRate)return bufCache[kind];
+  const n=ctx.sampleRate*6,b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);
+  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,last=0;
+  for(let i=0;i<n;i++){
+    const w=Math.random()*2-1;
+    if(kind==='pink'){b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926;}
+    else if(kind==='brown'){last=(last+.02*w)/1.02;d[i]=last*3.5;}
+    else d[i]=w;
+  }
+  return bufCache[kind]=b;
+}
+function makeExtra(type){
+  const gain=ctx.createGain(),nodes=[];gain.connect(master);
+  const filt=(t,f,q=.7)=>{const x=ctx.createBiquadFilter();x.type=t;x.frequency.value=f;x.Q.value=q;return x;};
+  const amp=v=>{const g=ctx.createGain();g.gain.value=v;return g;};
+  const noise=(kind,...chain)=>{const s=ctx.createBufferSource();s.buffer=colorBuffer(kind);s.loop=true;let prev=s;chain.forEach(n=>{prev.connect(n);prev=n;});prev.connect(gain);s.start(0,Math.random()*5);nodes.push(s);return s;};
+  const lfo=(freq,depth,param,wave='sine')=>{const o=ctx.createOscillator(),g=amp(depth);o.type=wave;o.frequency.value=freq;o.connect(g);g.connect(param);o.start();nodes.push(o,g);};
+  const tone=(freq,v)=>{const o=ctx.createOscillator(),g=amp(v);o.frequency.value=freq;o.connect(g);g.connect(gain);o.start();nodes.push(o,g);};
+  // 시간 예약형 소리(심장박동·시계·싱잉볼): 화면이 꺼져도 이어지도록 2분치를 미리 예약
+  const sched=(period,fn)=>{let next=ctx.currentTime+.05,i=0;const pump=()=>{while(next<ctx.currentTime+120){fn(next,i++);next+=period;}};pump();const id=setInterval(pump,5000);nodes.push({stop(){clearInterval(id);try{gain.disconnect();}catch(e){}}});};
+  switch(type){
+    case 'white': gain.gain.value=.25; noise('white'); break;
+    case 'pink': gain.gain.value=.6; noise('pink'); break;
+    case 'brown': gain.gain.value=.7; noise('brown'); break;
+    case 'fan': gain.gain.value=.9; noise('brown',filt('lowpass',900)); noise('pink',filt('bandpass',2200,.5),amp(.25)); lfo(6,.04,gain.gain); break;
+    case 'cabin': gain.gain.value=.9; noise('brown',filt('lowpass',480)); noise('pink',filt('bandpass',1400,.4),amp(.12)); tone(96,.03); break;
+    case 'waterfall': gain.gain.value=.7; noise('white',filt('bandpass',3200,.4),amp(.45)); noise('pink',filt('lowpass',1400),amp(.8)); lfo(.17,.08,gain.gain); break;
+    case 'crickets':
+      gain.gain.value=.5; noise('pink',filt('lowpass',500),amp(.08));
+      [[4500,34,1.7],[4850,29,1.3],[5200,37,2.1]].forEach(([f,am,gate])=>{
+        const o=ctx.createOscillator(),g1=amp(.5),g2=amp(.5),out=amp(.12);o.frequency.value=f;
+        lfo(am,.5,g1.gain);lfo(gate,.5,g2.gain,'square');
+        o.connect(g1);g1.connect(g2);g2.connect(out);out.connect(gain);o.start();nodes.push(o);
+      });break;
+    case 'heartbeat': gain.gain.value=.9;
+      sched(.95,t=>{[[0,1],[.3,.7]].forEach(([dt,a])=>{const T=t+dt,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(90,T);o.frequency.exponentialRampToValueAtTime(45,T+.14);g.gain.setValueAtTime(0,T);g.gain.linearRampToValueAtTime(a,T+.012);g.gain.exponentialRampToValueAtTime(.001,T+.22);o.connect(g);g.connect(gain);o.start(T);o.stop(T+.25);});});break;
+    case 'clock': gain.gain.value=.6;
+      sched(1,(t,i)=>{const s=ctx.createBufferSource(),f=filt('bandpass',i%2?2100:2700,1.5),g=ctx.createGain();s.buffer=colorBuffer('white');g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(1,t+.002);g.gain.exponentialRampToValueAtTime(.001,t+.05);s.connect(f);f.connect(g);g.connect(gain);s.start(t,Math.random()*5,.06);});break;
+    case 'bowl': gain.gain.value=.8;
+      sched(16,t=>{[[1,.5],[2.76,.22],[5.4,.08]].forEach(([m,a])=>[0,1.3].forEach(dt=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=294*m+dt;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(a*.5,t+.01);g.gain.exponentialRampToValueAtTime(.0005,t+(m>1?6:12));o.connect(g);g.connect(gain);o.start(t);o.stop(t+13);}));});break;
+  }
+  return {nodes,gain};
+}
+function makeNoise(type){
+  if(EXTRA.includes(type))return makeExtra(type);
+  const src=ctx.createBufferSource();src.buffer=noiseBuffer();src.loop=true;
+  const filter=ctx.createBiquadFilter();const gain=ctx.createGain();
+  const cfg={
+    rain:['bandpass',1100,0.8],thunder:['lowpass',180,0.7],fire:['lowpass',850,0.55],
+    ocean:['lowpass',420,0.65],forest:['bandpass',1700,0.35],wind:['lowpass',330,0.8],
+    birds:['highpass',2400,0.25],stream:['bandpass',1250,0.65],snow:['lowpass',500,0.8],train:['lowpass',260,0.65]
+  }[type];
+  filter.type=cfg[0];filter.frequency.value=cfg[1];filter.Q.value=0.7;
+  gain.gain.value=cfg[2];
+  src.connect(filter);filter.connect(gain);gain.connect(master);src.start();
+  const nodes=[src,filter,gain];
+  if(type==='ocean'||type==='wind'||type==='thunder'){
+    const lfo=ctx.createOscillator(), lg=ctx.createGain();lfo.frequency.value=type==='ocean'?0.12:type==='wind'?0.07:0.035;lg.gain.value=type==='thunder'?0.18:0.22;lfo.connect(lg);lg.connect(gain.gain);lfo.start();nodes.push(lfo,lg);
+  }
+  if(type==='fire'||type==='train'){
+    const osc=ctx.createOscillator(), og=ctx.createGain();osc.type='sine';osc.frequency.value=type==='fire'?17:2.2;og.gain.value=type==='fire'?0.035:0.08;osc.connect(og);og.connect(gain.gain);osc.start();nodes.push(osc,og);
+  }
+  if(type==='birds'){
+    const osc=ctx.createOscillator(), og=ctx.createGain();osc.type='sine';osc.frequency.value=2100;og.gain.value=0.018;osc.connect(og);og.connect(gain.gain);osc.start();nodes.push(osc,og);
+  }
+  return {nodes,gain};
+}
+const names={rain:'🌧️ 빗소리',thunder:'⛈️ 천둥소리',fire:'🔥 모닥불',ocean:'🌊 파도소리',forest:'🌲 숲속 소리',wind:'💨 바람소리',birds:'🐦 새소리',stream:'💧 물 흐르는 소리',snow:'❄️ 눈보라',train:'🚂 기차',white:'⚪ 하얀 소음',pink:'🌸 핑크 노이즈',brown:'🟤 브라운 노이즈',fan:'🌀 선풍기',cabin:'✈️ 비행기 기내',waterfall:'🏞️ 폭포',crickets:'🦗 귀뚜라미',heartbeat:'🫀 심장박동',clock:'🕰️ 시계 초침',bowl:'🔔 싱잉볼'};
+function ensureAudio(){if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=.8;master.connect(ctx.destination);}if(ctx.state==='suspended')ctx.resume();}
+function stopOne(id){const item=active.get(id);if(!item)return;item.nodes.forEach(n=>{try{if(n.stop)n.stop();}catch(e){}});active.delete(id);render();}
+function startOne(id){ensureAudio();if(active.has(id))return;const sound=makeNoise(id);active.set(id,sound);render();}
+function render(){
+  document.querySelectorAll('.sound').forEach(b=>{
+    const id=b.dataset.id;
+    b.classList.toggle('active',active.has(id));
+    b.hidden=favoriteOnly&&!favorites.has(id);
+    let star=b.querySelector('.fav-star');
+    if(!star){star=document.createElement('span');star.className='fav-star';star.setAttribute('role','button');star.setAttribute('tabindex','0');star.setAttribute('aria-label','즐겨찾기');b.append(star);}
+    star.textContent=favorites.has(id)?'★':'☆';star.classList.toggle('is-fav',favorites.has(id));
+  });
+  const el=$('#tracks');if(!active.size){el.innerHTML='<div class="empty">소리를 선택하면 여기에서 각각 음량을 조절할 수 있어요.</div>';return;}
+  el.innerHTML='';
+  active.forEach((item,id)=>{const row=document.createElement('div');row.className='track';const label=document.createElement('label');label.textContent=names[id];const out=document.createElement('output');out.textContent=Math.round(item.gain.gain.value*100)+'%';const slider=document.createElement('input');slider.type='range';slider.min=0;slider.max=100;slider.value=Math.round(item.gain.gain.value*100);slider.setAttribute('aria-label',names[id]+' 음량');slider.oninput=()=>{item.gain.gain.value=slider.value/100;out.textContent=slider.value+'%';};row.append(label,out,slider);el.append(row);});
+}
+document.querySelectorAll('.sound').forEach(b=>b.addEventListener('click',e=>{
+  if(e.target.closest('.fav-star')){e.stopPropagation();const id=b.dataset.id;favorites.has(id)?favorites.delete(id):favorites.add(id);localStorage.setItem('dreamFavorites',JSON.stringify([...favorites]));render();return;}
+  const id=b.dataset.id;active.has(id)?stopOne(id):startOne(id);$('#status').textContent=active.size?'선택한 소리를 재생 중이에요.':'모든 소리를 정지했어요.';
+}));
+$('#showAll').onclick=()=>{favoriteOnly=false;$('#showAll').classList.add('on');$('#showFav').classList.remove('on');render();};
+$('#showFav').onclick=()=>{favoriteOnly=true;$('#showFav').classList.add('on');$('#showAll').classList.remove('on');render();};
+const presets={sleep:['rain','thunder'],forest:['forest','birds','stream'],cozy:['fire','wind'],journey:['train','rain']};
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{[...active.keys()].forEach(stopOne);Object.keys(presets).forEach(()=>{});presets[b.dataset.preset].forEach(startOne);paused=false;if(master)master.gain.setTargetAtTime(Number($('#masterVolume').value)/100,ctx.currentTime,.05);$('#status').textContent='추천 믹스를 재생 중이에요.';});
+$('#play').onclick=()=>{ensureAudio();if(!active.size)startOne('rain');master.gain.setTargetAtTime(Number($('#masterVolume').value)/100,ctx.currentTime,.05);paused=false;$('#status').textContent='선택한 소리를 재생 중이에요.';};
+$('#pause').onclick=()=>{if(!ctx||!active.size)return;master.gain.setTargetAtTime(0,ctx.currentTime,.04);paused=true;$('#status').textContent='일시정지했어요. 재생 버튼을 누르면 다시 시작해요.';};
+$('#masterVolume').oninput=()=>{const v=Number($('#masterVolume').value);$('#masterOut').textContent=v+'%';if(ctx&&!paused)master.gain.setTargetAtTime(v/100,ctx.currentTime,.04);};
+$('#stop').onclick=()=>{[...active.keys()].forEach(stopOne);paused=false;if(ctx)master.gain.setTargetAtTime(Number($('#masterVolume').value)/100,ctx.currentTime,.04);clearInterval(timerInterval);timerInterval=null;$('#timerText').textContent='설정 안 됨';$('#timerBtn').textContent='타이머 시작';$('#status').textContent='모든 소리를 정지했어요.';};
+$('#timerBtn').onclick=()=>{if(timerInterval){clearInterval(timerInterval);timerInterval=null;$('#timerText').textContent='타이머 취소됨';$('#timerBtn').textContent='타이머 시작';return;}if(!active.size){$('#status').textContent='먼저 소리를 하나 선택해 주세요.';return;}timerEnd=Date.now()+Number($('#duration').value)*60000;$('#timerBtn').textContent='타이머 취소';timerInterval=setInterval(()=>{const left=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));$('#timerText').textContent=Math.floor(left/60)+'분 '+String(left%60).padStart(2,'0')+'초 남음';if(left<=0){clearInterval(timerInterval);timerInterval=null;if(master)master.gain.setTargetAtTime(0,ctx.currentTime,1.5);setTimeout(()=>[...active.keys()].forEach(stopOne),1800);$('#timerBtn').textContent='타이머 시작';$('#timerText').textContent='타이머 종료';$('#status').textContent='타이머가 끝나 소리를 정지했어요.';}},500);};
+render();
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>
