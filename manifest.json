@@ -1,1 +1,11 @@
-%7B%0A%20%20%22background_color%22%3A%20%22%23ffffff%22%2C%0A%20%20%22dir%22%3A%20%22ltr%22%2C%0A%20%20%22display%22%3A%20%22standalone%22%2C%0A%20%20%22name%22%3A%20%22roaring-crisp-9af1c4.netlify%22%2C%0A%20%20%22orientation%22%3A%20%22any%22%2C%0A%20%20%22scope%22%3A%20%22%2F%22%2C%0A%20%20%22short_name%22%3A%20%22roaring-crisp-9af1c4.netlify%22%2C%0A%20%20%22start_url%22%3A%20%22%2F%22%2C%0A%20%20%22theme_color%22%3A%20%22%23673ab7%22%2C%0A%20%20%22id%22%3A%20%22dream%20sounds%20%22%2C%0A%20%20%22description%22%3A%20%22https%3A%2F%2Froaring-crisp-9af1c4.netlify.app%2F%22%0A%7D
+{
+  "name": "DREAM SOUND",
+  "short_name": "DREAM SOUND",
+  "description": "편안한 휴식을 위한 백색소음 앱",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101820",
+  "theme_color": "#101820"
+}
